@@ -1,12 +1,14 @@
 FROM python:3.5
 MAINTAINER Kenta Mukai
 
-RUN mkdir -p /var/apps/project
-WORKDIR /var/apps/project
-ADD requirements.txt /var/apps/project
+ENV app_dir /var/apps/rest-api
+
+RUN mkdir -p $app_dir
+WORKDIR $app_dir
+ADD requirements.txt .
 RUN pip install -r requirements.txt
-ADD uwsgi.ini /var/apps/project
-ADD hello.py /var/apps/project
+ADD uwsgi.ini .
+ADD hello.py .
 
 EXPOSE 3031
-CMD ["/usr/local/bin/uwsgi", "/var/apps/project/uwsgi.ini"]
+CMD ["/usr/local/bin/uwsgi", "uwsgi.ini"]

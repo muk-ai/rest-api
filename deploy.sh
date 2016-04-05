@@ -15,6 +15,9 @@ if [ $? -ne 0 ]; then
 fi
 container_id=$(echo $container_id_long | cut -c -12)
 
+# 5秒以内に立ち上がらんかったら知らん
+sleep 5
+
 docker network connect --alias $container_id $network_name $container_id
 curl http://localhost/container/switchover?dest=$container_id
 curl http://localhost/

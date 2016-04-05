@@ -1,0 +1,25 @@
+version: "2"
+
+services:
+  ngx-mruby:
+    build:
+      context: ./ngx-mruby
+    ports:
+      - "80:80"
+    depends_on:
+      - falcon
+    networks:
+      - flat-network
+  falcon:
+    build:
+      context: ./falcon
+    expose:
+      - "3031"
+    networks:
+      - flat-network
+networks:
+  flat-network:
+#    ipam:
+#      config:
+#        - subnet: 192.168.123.0/24
+#          gateway: 192.168.123.1

@@ -1,2 +1,4 @@
 uwsgi
 falcon
+requests
+pytest

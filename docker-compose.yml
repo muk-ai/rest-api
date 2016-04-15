@@ -1,9 +1,9 @@
 version: "2"
+
 services:
-  nginx:
-    image: nginx:latest
-    volumes:
-      - "./nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
+  ngx-mruby:
+    build:
+      context: ./ngx-mruby
     ports:
       - "80:80"
     depends_on:

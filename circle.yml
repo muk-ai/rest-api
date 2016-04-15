@@ -1,12 +1,10 @@
 machine:
-  services:
-    - docker
+  python:
+    version: 3.5.0
 dependencies:
   override:
-    - sudo pip install --upgrade docker-compose
+    - pip install -r ./falcon/requirements.txt
 test:
-  pre:
-    - docker-compose build
   override:
     - pwd ~
     - ifconfig

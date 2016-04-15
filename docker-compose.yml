@@ -13,6 +13,7 @@ services:
   falcon:
     build:
       context: ./falcon
+    stop_signal: SIGQUIT
     expose:
       - "3031"
     networks:

@@ -4,9 +4,18 @@ machine:
 dependencies:
   override:
     - pip install -r ./falcon/requirements.txt
+    - |
+      uwsgi \
+        --master \
+        --http :3031 \
+        --wsgi hello:application \
+        --python-path /home/ubuntu/rest-api/falcon/ \
+        --processes 2 \
+        --daemonize /home/ubuntu/rest-api/falcon/uwsgi.log
 test:
   override:
     - pwd ~
     - ifconfig
     - echo HelloWorld
+    - curl http://localhost:3031/
     - exit 0

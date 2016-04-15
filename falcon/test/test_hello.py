@@ -7,6 +7,6 @@ def test_hello():
     print(url)
     response = requests.get(url)
     print(response.text)
-    response_json = json.dumps('response.text')
+    response_json = json.loads(response.text)
     assert response.status_code == 200
     assert response_json['messages'] == 'hello, world'

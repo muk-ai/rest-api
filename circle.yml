@@ -14,9 +14,7 @@ dependencies:
         --daemonize /home/ubuntu/rest-api/falcon/uwsgi.log
 test:
   override:
-    - pwd ~
-    - ifconfig
-    - echo HelloWorld
-    - curl http://localhost:3031/
+    - pwd
+    - ip a
     - py.test /home/ubuntu/rest-api/falcon/test/test_hello.py
     - exit 0

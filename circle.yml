@@ -14,8 +14,8 @@ dependencies:
         --daemonize /home/ubuntu/rest-api/falcon/uwsgi.log
 database:
   post:
-    - mysql -u root -e 'CREATE DATABASE exampledb'
-    - mysql -u root exampledb < $HOME/$CIRCLE_PROJECT_REPONAME/create_exampledb.sql
+    - mysql --socket=/var/run/mysqld/mysqld.sock -e 'CREATE DATABASE exampledb'
+    - mysql --socket=/var/run/mysqld/mysqld.sock exampledb < $HOME/$CIRCLE_PROJECT_REPONAME/create_exampledb.sql
 test:
   override:
     - pwd

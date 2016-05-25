@@ -3,7 +3,7 @@ machine:
     version: 3.5.0
 dependencies:
   override:
-    - pip install -r ./falcon/requirements.txt
+    - pip install -r ./falcon/rest-api-example/requirements.txt
     - |
       uwsgi \
         --master \
@@ -12,6 +12,10 @@ dependencies:
         --python-path /home/ubuntu/rest-api/falcon/ \
         --processes 2 \
         --daemonize /home/ubuntu/rest-api/falcon/uwsgi.log
+database:
+  post:
+    - mysql -u root -e 'CREATE DATABASE exampledb'
+    - mysql -u root exampledb < $HOME/$CIRCLE_PROJECT_REPONAME/create_exampledb.sql
 test:
   override:
     - pwd

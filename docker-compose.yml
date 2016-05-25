@@ -15,7 +15,28 @@ services:
     stop_signal: SIGQUIT
     expose:
       - "3031"
+    volumes:
+      - "./falcon/rest-api-example/:/var/apps/rest-api-example/" # for development
+    environment:
+      MYSQL_HOST: "mysql:3306"
+      MYSQL_DATABASE: "exampledb"
+      MYSQL_USER: "api-user"
+      MYSQL_PASSWORD: "api-user"
     networks:
       - flat-network
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "hogehoge"
+      MYSQL_DATABASE: "exampledb"
+      MYSQL_USER: "api-user"
+      MYSQL_PASSWORD: "api-user"
+    volumes:
+      - "db-data:/var/lib/mysql"
+      - "./create_exampledb.sql:/docker-entrypoint-initdb.d/create_exampledb.sql"
+    networks:
+      - flat-network
+volumes:
+  db-data:
 networks:
   flat-network:

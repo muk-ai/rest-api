@@ -1,0 +1,7 @@
+uwsgi
+falcon
+requests
+pytest
+mysqlclient
+SQLAlchemy
+alembic

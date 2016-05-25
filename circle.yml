@@ -3,15 +3,21 @@ machine:
     version: 3.5.0
 dependencies:
   override:
-    - pip install -r ./falcon/requirements.txt
+    - pip install -r ./falcon/rest-api-example/requirements.txt
     - |
       uwsgi \
         --master \
         --http :3031 \
-        --wsgi hello:application \
-        --python-path /home/ubuntu/rest-api/falcon/ \
+        --wsgi app:application \
+        --python-path /home/ubuntu/rest-api/falcon/rest-api-example/ \
         --processes 2 \
         --daemonize /home/ubuntu/rest-api/falcon/uwsgi.log
+database:
+  post:
+#    - mysql -e "CREATE USER '$MYSQL_USER' IDENTIFIED BY '$MYSQL_PASSWORD'"
+    - mysql -e "CREATE DATABASE $MYSQL_DATABASE"
+    - mysql -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'$MYSQL_HOST' IDENTIFIED BY '$MYSQL_PASSWORD'"
+    - mysql exampledb < $HOME/$CIRCLE_PROJECT_REPONAME/create_exampledb.sql
 test:
   override:
     - pwd

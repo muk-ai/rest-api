@@ -8,14 +8,14 @@ dependencies:
       uwsgi \
         --master \
         --http :3031 \
-        --wsgi hello:application \
-        --python-path /home/ubuntu/rest-api/falcon/ \
+        --wsgi app:application \
+        --python-path /home/ubuntu/rest-api/falcon/rest-api-example/ \
         --processes 2 \
         --daemonize /home/ubuntu/rest-api/falcon/uwsgi.log
 database:
   post:
-    - mysql --socket=/var/run/mysqld/mysqld.sock -e 'CREATE DATABASE exampledb'
-    - mysql --socket=/var/run/mysqld/mysqld.sock exampledb < $HOME/$CIRCLE_PROJECT_REPONAME/create_exampledb.sql
+    - mysql -e 'CREATE DATABASE exampledb'
+    - mysql exampledb < $HOME/$CIRCLE_PROJECT_REPONAME/create_exampledb.sql
 test:
   override:
     - pwd
